@@ -23,14 +23,30 @@
 
 ## 학습 목차
 
+### 기초: Claude Code는 어떻게 작동하는가
+
 | # | 주제 | 핵심 질문 | 파일 |
 |---|------|----------|------|
-| 01 | Skills | Zapier 워크플로우 같은 자동화를 마크다운으로? | [docs/01-skills.md](docs/01-skills.md) |
-| 02 | Agentic Framework vs Claude Code | CrewAI 같은 프레임워크와 뭐가 다른가? | [docs/02-agentic-vs-claude-code.md](docs/02-agentic-vs-claude-code.md) |
-| 03 | Claude Code 체계 | 설정 파일 구조와 동작 원리는? | [docs/03-claude-code-체계.md](docs/03-claude-code-체계.md) |
-| 04 | 기억 체계 | AI가 대화를 기억하는 구조는? | [docs/04-기억체계.md](docs/04-기억체계.md) |
-| 05 | Subagent | 작업을 위임하는 부하 직원 구조 | [docs/05-subagent.md](docs/05-subagent.md) |
-| 06 | Agent Teams | 팀원끼리 직접 소통하는 협업 구조 | [docs/06-agent-teams.md](docs/06-agent-teams.md) |
+| 01 | Claude Code 체계 | 전체 구조와 동작 원리는? | [docs/01-claude-code-체계.md](docs/01-claude-code-체계.md) |
+| 02 | 기억 체계 | AI가 대화를 기억하는 구조는? | [docs/02-기억체계.md](docs/02-기억체계.md) |
+| 03 | Skills | Zapier 워크플로우 같은 자동화를 마크다운으로? | [docs/03-skills.md](docs/03-skills.md) |
+
+### 확장: 작업을 나누고 연결하기
+
+| # | 주제 | 핵심 질문 | 파일 |
+|---|------|----------|------|
+| 04 | Subagent | 작업을 위임하는 부하 직원 구조 | [docs/04-subagent.md](docs/04-subagent.md) |
+| 05 | Agent Teams | 팀원끼리 직접 소통하는 협업 구조 | [docs/05-agent-teams.md](docs/05-agent-teams.md) |
+| 06 | Agentic Framework vs Claude Code | CrewAI 같은 프레임워크와 뭐가 다른가? | [docs/06-agentic-vs-claude-code.md](docs/06-agentic-vs-claude-code.md) |
+
+### 실전: 외부 연동과 자동화
+
+| # | 주제 | 핵심 질문 | 파일 |
+|---|------|----------|------|
+| 07 | MCP (Model Context Protocol) | 외부 서비스(Slack, DB 등)를 어떻게 연결하나? | [docs/07-mcp.md](docs/07-mcp.md) |
+| 08 | Hooks | 이벤트 기반 자동 실행은 어떻게 설정하나? | [docs/08-hooks.md](docs/08-hooks.md) |
+| 09 | 컨텍스트 윈도우 관리 | 200k 토큰의 현실적 한계와 대처법은? | [docs/09-컨텍스트-윈도우-관리.md](docs/09-컨텍스트-윈도우-관리.md) |
+| 10 | 실전 워크플로우 | 실무에서 이 기능들을 어떻게 조합하나? | [docs/10-실전-워크플로우.md](docs/10-실전-워크플로우.md) |
 
 ## 학습 방식
 
