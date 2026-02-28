@@ -96,20 +96,6 @@ Chrome 확장     브라우저 기능 추가       →  Plugin Marketplace
 └────────────────────────────────────┘
 ```
 
-## 블로그 연재
-
-이 저장소 문서를 기반으로 블로그 초안을 생성하는 파이프라인:
-
-| 파일 | 설명 |
-|---|---|
-| [blog-series/README.md](blog-series/README.md) | 운영 가이드 |
-| [blog-series/series-calendar.csv](blog-series/series-calendar.csv) | 연재 캘린더 |
-| [blog-series/review-gate.md](blog-series/review-gate.md) | 리뷰 기준 |
-
-```bash
-./blog-series/scripts/scaffold-day.sh 2026-03-02
-```
-
 ## 환경
 
 | | |
