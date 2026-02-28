@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>왕아름님을 위한 Claude Code 워크숍 준비</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    background: #f5f5f7;
+    color: #1d1d1f;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 560px;
+    width: 100%;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .header .icon {
+    font-size: 48px;
+    margin-bottom: 8px;
+  }
+
+  .header h1 {
+    font-size: 28px;
+    font-weight: 900;
+    color: #1d1d1f;
+    margin-bottom: 6px;
+  }
+
+  .header p {
+    font-size: 15px;
+    color: #86868b;
+    line-height: 1.6;
+  }
+
+  /* Progress */
+  .progress-area {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #86868b;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .progress-bar {
+    height: 8px;
+    background: #e8e8ed;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #007aff, #5856d6);
+    border-radius: 99px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 20px;
+  }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #007aff;
+    margin-bottom: 10px;
+    padding-left: 4px;
+  }
+
+  /* Check Item */
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px;
+    background: #fff;
+    border-radius: 14px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .check-item:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .check-item.checked {
+    background: #f9f9fb;
+  }
+
+  .check-item.checked .item-text h3 {
+    color: #aaabb0;
+    text-decoration: line-through;
+    text-decoration-color: #ccc;
+  }
+
+  .check-item.checked .item-text p,
+  .check-item.checked .item-text .help-box {
+    opacity: 0.4;
+  }
+
+  /* Custom Checkbox */
+  .checkbox-wrap {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .checkbox-wrap input { display: none; }
+
+  .checkbox-visual {
+    width: 26px;
+    height: 26px;
+    border: 2px solid #d2d2d7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .check-item.checked .checkbox-visual {
+    background: #007aff;
+    border-color: #007aff;
+  }
+
+  .checkbox-visual svg {
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.2s ease;
+  }
+
+  .check-item.checked .checkbox-visual svg {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Item Text */
+  .item-text {
+    flex: 1;
+  }
+
+  .item-text h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin-bottom: 4px;
+    transition: all 0.3s ease;
+  }
+
+  .item-text p {
+    font-size: 13px;
+    color: #6e6e73;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+  }
+
+  .item-text a {
+    color: #007aff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .item-text a:hover {
+    text-decoration: underline;
+  }
+
+  code {
+    background: #f0f0f5;
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-family: 'SF Mono', 'Menlo', monospace;
+    font-size: 12px;
+    color: #1d1d1f;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 5px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .tag.required {
+    background: #ffebee;
+    color: #d32f2f;
+  }
+
+  .tag.optional {
+    background: #e3f2fd;
+    color: #1976d2;
+  }
+
+  /* Help Box */
+  .help-box {
+    margin-top: 10px;
+    background: #f5f5f7;
+    border-radius: 10px;
+    padding: 14px 16px;
+    border-left: 3px solid #007aff;
+    transition: all 0.3s ease;
+  }
+
+  .help-box .help-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #007aff;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .help-box ol {
+    padding-left: 18px;
+    margin: 0;
+  }
+
+  .help-box li {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.7;
+    padding: 2px 0;
+  }
+
+  .help-box .note {
+    font-size: 12px;
+    color: #86868b;
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  .help-box img, .help-box .screenshot-placeholder {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 8px;
+    border: 1px solid #e0e0e0;
+  }
+
+  .screenshot-placeholder {
+    background: #eee;
+    padding: 16px;
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+  }
+
+  /* Modal Popup */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.show {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .modal {
+    background: #fff;
+    border-radius: 20px;
+    padding: 48px 40px 36px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.85) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .modal .emoji {
+    font-size: 72px;
+    margin-bottom: 16px;
+    animation: bounce 0.6s ease 0.3s both;
+  }
+
+  @keyframes bounce {
+    0% { transform: scale(0); }
+    60% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+  }
+
+  .modal h2 {
+    font-size: 26px;
+    font-weight: 900;
+    color: #1d1d1f;
+    margin-bottom: 8px;
+  }
+
+  .modal p {
+    font-size: 16px;
+    color: #6e6e73;
+    line-height: 1.6;
+  }
+
+  .modal .sub {
+    font-size: 14px;
+    color: #aaabb0;
+    margin-top: 20px;
+  }
+
+  .modal-close {
+    margin-top: 28px;
+    padding: 12px 36px;
+    background: #007aff;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: background 0.2s;
+  }
+
+  .modal-close:hover { background: #0063d1; }
+
+  /* Confetti Canvas */
+  #confetti {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1001;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 28px;
+    font-size: 12px;
+    color: #aaabb0;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="container">
+  <div class="header">
+    <div class="icon">🛠️</div>
+    <h1>왕아름님를 위한 사전 준비</h1>
+    <p>아래 항목을 하나씩 따라해주세요!<br>모르는 게 있으면 파란 도움말을 읽어보면 돼요 😊</p>
+  </div>
+
+  <div class="progress-area">
+    <div class="progress-text">
+      <span id="progress-label">0 / 8 완료</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- Section: 계정 -->
+  <div class="section">
+    <div class="section-label">Step 1 · 계정 준비</div>
+
+    <div class="check-item" onclick="toggle(this)">
+      <div class="checkbox-wrap">
+        <input type="checkbox">
+        <div class="checkbox-visual">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7.5L5.5 11L12 3" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="item-text">
+        <h3>Claude 유료 계정 가입 <span class="tag required">필수</span></h3>
+        <p><a href="https://claude.ai" target="_blank">claude.ai</a> 에서 Pro 플랜($20/월) 이상 구독</p>
+        <div class="help-box">
+          <div class="help-title">💡 이렇게 하세요</div>
+          <ol>
+            <li>브라우저에서 <a href="https://claude.ai" target="_blank">claude.ai</a> 접속</li>
+            <li>이메일 또는 Google 계정으로 회원가입</li>
+            <li>왼쪽 하단 또는 설정에서 <strong>"Pro로 업그레이드"</strong> 클릭</li>
+            <li>카드 정보 입력 후 구독 완료</li>
+          </ol>
+          <p class="note">⚠️ Free(무료) 플랜은 Claude Code를 사용할 수 없어요. 반드시 Pro 이상이어야 합니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-item" onclick="toggle(this)">
+      <div class="checkbox-wrap">
+        <input type="checkbox">
+        <div class="checkbox-visual">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7.5L5.5 11L12 3" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="item-text">
+        <h3>로그인 테스트 <span class="tag required">필수</span></h3>
+        <p>브라우저에서 <a href="https://claude.ai" target="_blank">claude.ai</a> 에 로그인해서 채팅이 되는지 확인</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: 소프트웨어 -->
+  <div class="section">
+    <div class="section-label">Step 2 · 프로그램 설치</div>
+
+    <div class="check-item" onclick="toggle(this)">
+      <div class="checkbox-wrap">
+        <input type="checkbox">
+        <div class="checkbox-visual">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7.5L5.5 11L12 3" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="item-text">
+        <h3>Git 설치 <span class="tag required">필수</span></h3>
+        <p><a href="https://git-scm.com/downloads/win" target="_blank">git-scm.com</a> 에서 다운로드 → 설치</p>
+        <div class="help-box">
+          <div class="help-title">💡 이렇게 하세요</div>
+          <ol>
+            <li><a href="https://git-scm.com/downloads/win" target="_blank">git-scm.com/downloads/win</a> 접속</li>
+            <li><strong>"Click here to download"</strong> 클릭하여 설치 파일 다운로드</li>
+            <li>다운로드된 파일 실행 → 모든 옵션 기본값 그대로 <strong>Next</strong> 계속 클릭 → <strong>Install</strong></li>
+            <li>설치 완료 후 아래 "확인 방법"으로 잘 됐는지 체크!</li>
+          </ol>
+          <p class="note">설치 중 옵션이 많이 나오는데, 아무것도 바꾸지 말고 기본값 그대로 진행하세요.</p>
+          <div class="help-box" style="border-left-color: #34c759; margin-top: 10px; background: #f0faf0;">
+            <div class="help-title" style="color: #34c759;">✅ 확인 방법 (PowerShell)</div>
+            <ol>
+              <li>키보드에서 <strong>Windows 키</strong>(⊞) 누르기</li>
+              <li><strong>powershell</strong> 이라고 타이핑</li>
+              <li>"Windows PowerShell" 이 뜨면 클릭해서 실행</li>
+              <li>파란색 창이 열리면, 아래 명령어를 그대로 타이핑 후 Enter:<br><code>git --version</code></li>
+              <li><code>git version 2.xx.x</code> 같은 메시지가 나오면 성공!</li>
+            </ol>
+            <p class="note">"PowerShell"은 윈도우에 기본으로 들어있는 명령어 입력 프로그램이에요. 까만 화면(또는 파란 화면)에 글자를 입력해서 컴퓨터에 명령을 내리는 도구입니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-item" onclick="toggle(this)">
+      <div class="checkbox-wrap">
+        <input type="checkbox">
+        <div class="checkbox-visual">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7.5L5.5 11L12 3" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="item-text">
+        <h3>Claude Code Desktop App 설치 <span class="tag required">필수</span></h3>
+        <p><a href="https://claude.ai/download" target="_blank">claude.ai/download</a> 에서 Windows 버전 다운로드</p>
+        <div class="help-box">
+          <div class="help-title">💡 이렇게 하세요</div>
+          <ol>
+            <li><a href="https://claude.ai/download" target="_blank">claude.ai/download</a> 접속</li>
+            <li>Windows용 다운로드 버튼 클릭</li>
+            <li>다운로드된 .exe 파일 실행 → 설치</li>
+            <li>설치 완료 후 앱 실행</li>
+            <li>Claude 계정으로 <strong>로그인</strong>까지 완료</li>
+          </ol>
+          <p class="note">이 앱이 워크숍 오전에 주로 사용할 도구예요. ChatGPT와 비슷한 화면이지만, 내 컴퓨터 파일을 직접 다룰 수 있습니다!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-item" onclick="toggle(this)">
+      <div class="checkbox-wrap">
+        <input type="checkbox">
+        <div class="checkbox-visual">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7.5L5.5 11L12 3" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="item-text">
+        <h3>코드 편집기 설치 <span class="tag optional">선택</span></h3>
+        <p>아래 중 하나만 설치하면 됩니다 (이미 있으면 패스!)</p>
+        <div class="help-box">
+          <div class="help-title">💡 코드 편집기가 뭔가요?</div>
+          <p style="font-size:13px; color:#444; line-height:1.7;">메모장의 프로 버전이에요. Claude가 만든 코드를 확인하거나 수정할 때 편합니다. 없어도 워크숍 진행에는 문제 없어요!</p>
+          <div style="margin-top:10px;">
+            <p style="font-size:13px; color:#333; line-height:2;">
+              <strong>추천 순서:</strong><br>
+              1. <a href="https://www.cursor.com" target="_blank" style="color:#007aff;">Cursor</a> — AI 기능이 내장된 편집기. 요즘 가장 인기!<br>
+              2. <a href="https://code.visualstudio.com" target="_blank" style="color:#007aff;">VS Code</a> — 가장 널리 쓰이는 무료 편집기<br>
+              3. <a href="https://windsurf.com" target="_blank" style="color:#007aff;">Windsurf</a> — AI 코딩 특화 편집기
+            </p>
+          </div>
+          <p class="note">셋 다 무료로 시작할 수 있고, 아무거나 하나만 있으면 됩니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: 환경 -->
+  <div class="section">
+    <div class="section-label">Step 3 · 실습 환경 준비</div>
+
+    <div class="check-item" onclick="toggle(this)">
+      <div class="checkbox-wrap">
+        <input type="checkbox">
+        <div class="checkbox-visual">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7.5L5.5 11L12 3" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="item-text">
+        <h3>실습 폴더 만들기 <span class="tag required">필수</span></h3>
+        <p>바탕화면에 <code>claude-workshop</code> 폴더 생성</p>
+        <div class="help-box">
+          <div class="help-title">💡 이렇게 하세요</div>
+          <ol>
+            <li>바탕화면 빈 곳에서 <strong>마우스 오른쪽 클릭</strong></li>
+            <li><strong>새로 만들기</strong> → <strong>폴더</strong> 클릭</li>
+            <li>폴더 이름을 <code>claude-workshop</code> 으로 입력 후 Enter</li>
+          </ol>
+          <p class="note">이 폴더가 워크숍 당일 작업 공간이 됩니다. 실습 결과물이 여기에 저장돼요.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-item" onclick="toggle(this)">
+      <div class="checkbox-wrap">
+        <input type="checkbox">
+        <div class="checkbox-visual">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7.5L5.5 11L12 3" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="item-text">
+        <h3>정리 안 된 폴더 하나 골라두기 <span class="tag required">필수</span></h3>
+        <p>다운로드 폴더, 바탕화면 등 파일이 마구 쌓여있는 폴더 1개</p>
+        <div class="help-box">
+          <div class="help-title">💡 이건 왜 필요한가요?</div>
+          <p style="font-size:13px; color:#444; line-height:1.7;">워크숍에서 <strong>Claude에게 폴더 정리를 시켜보는 실습</strong>을 해요! 실제로 내 지저분한 폴더를 AI가 알아서 분류하는 경험을 할 수 있습니다. "다운로드" 폴더처럼 파일이 많이 쌓인 곳이 제일 좋아요.</p>
+          <p class="note">⚠️ 중요한 업무 파일이 들어있는 폴더는 피해주세요. 연습용이니까 사라져도 괜찮은 폴더로!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-item" onclick="toggle(this)">
+      <div class="checkbox-wrap">
+        <input type="checkbox">
+        <div class="checkbox-visual">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7.5L5.5 11L12 3" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="item-text">
+        <h3>Notion 계정 확인 <span class="tag optional">선택</span></h3>
+        <p>Notion을 쓰고 있다면, 로그인 상태인지 확인</p>
+        <div class="help-box">
+          <div class="help-title">💡 이건 왜 필요한가요?</div>
+          <p style="font-size:13px; color:#444; line-height:1.7;">워크숍 후반에 <strong>Claude Code에서 Notion에 직접 글을 쓰는 실습</strong>이 있어요. Notion 계정이 있으면 AI가 내 Notion 페이지를 읽고, 수정하고, 새 페이지를 만드는 체험을 할 수 있습니다!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Claude Code Workshop · Powered by Anthropic
+  </div>
+</div>
+
+<!-- Modal Popup -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="emoji">🎉</div>
+    <h2>왕아름님 준비 완료!</h2>
+    <p>완벽해요! 이것만 하면 됐어요!<br>내일 뵙겠습니다! 🙌</p>
+    <p class="sub"><strong>노트북 + 충전기</strong>만 챙겨오세요 ⚡<br>나머지는 제가 다 준비해둘게요!</p>
+    <button class="modal-close" onclick="closeModal()">확인</button>
+  </div>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<script>
+const items = document.querySelectorAll('.check-item');
+const total = items.length;
+const STORAGE_KEY = 'claude-workshop-checklist-v2';
+
+function loadState() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    saved.forEach(i => {
+      if (items[i]) {
+        items[i].classList.add('checked');
+        items[i].querySelector('input').checked = true;
+      }
+    });
+    updateProgress(false);
+  } catch(e) {}
+}
+
+function saveState() {
+  const checked = [];
+  items.forEach((item, i) => {
+    if (item.classList.contains('checked')) checked.push(i);
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(checked));
+}
+
+function toggle(el) {
+  el.classList.toggle('checked');
+  const cb = el.querySelector('input');
+  cb.checked = !cb.checked;
+  saveState();
+  updateProgress(true);
+}
+
+function updateProgress(animate) {
+  const done = document.querySelectorAll('.check-item.checked').length;
+  const pct = Math.round((done / total) * 100);
+
+  document.getElementById('progress-label').textContent = `${done} / ${total} 완료`;
+  document.getElementById('progress-pct').textContent = `${pct}%`;
+  document.getElementById('progress-fill').style.width = `${pct}%`;
+
+  if (done === total && animate) {
+    setTimeout(() => {
+      document.getElementById('modal').classList.add('show');
+      fireConfetti();
+    }, 400);
+  }
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+}
+
+// Close modal on overlay click
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// Confetti
+function fireConfetti() {
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const colors = ['#007aff', '#5856d6', '#34c759', '#ff9500', '#ff2d55', '#af52de'];
+  const particles = [];
+
+  for (let i = 0; i < 150; i++) {
+    particles.push({
+      x: canvas.width / 2 + (Math.random() - 0.5) * 300,
+      y: canvas.height / 2 + 100,
+      vx: (Math.random() - 0.5) * 18,
+      vy: Math.random() * -20 - 5,
+      w: Math.random() * 8 + 4,
+      h: Math.random() * 6 + 3,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      rotation: Math.random() * 360,
+      rotSpeed: (Math.random() - 0.5) * 14,
+      gravity: 0.35 + Math.random() * 0.2,
+      opacity: 1,
+    });
+  }
+
+  let frame = 0;
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let alive = false;
+
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.vy += p.gravity;
+      p.y += p.vy;
+      p.rotation += p.rotSpeed;
+      p.vx *= 0.99;
+
+      if (frame > 50) p.opacity -= 0.012;
+      if (p.opacity <= 0) return;
+      alive = true;
+
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, p.opacity);
+      ctx.translate(p.x, p.y);
+      ctx.rotate((p.rotation * Math.PI) / 180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    });
+
+    frame++;
+    if (alive) requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+loadState();
+</script>
+</body>
+</html>
