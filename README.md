@@ -6,7 +6,7 @@
 
 Zapier, Make, Cursor에서 터미널로 — 낯선 세계의 실전 가이드
 
-[![Docs](https://img.shields.io/badge/docs-16%20chapters-0ea5e9.svg)](./docs)
+[![Docs](https://img.shields.io/badge/docs-17%20chapters-0ea5e9.svg)](./docs)
 [![Level](https://img.shields.io/badge/level-beginner%20→%20advanced-f59e0b.svg)](#학습-로드맵)
 [![Style](https://img.shields.io/badge/style-nocode%20비교-a855f7.svg)](#왜-노코드-도구-비교인가)
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](./LICENSE)
@@ -75,6 +75,7 @@ Chrome 확장     브라우저 기능 추가       →  Plugin Marketplace
 | [13](docs/13-plugins.md) | **Plugins** | 기능을 패키징하고 앱스토어처럼 공유하려면? |
 | [14](docs/14-scheduled-tasks.md) | **Scheduled Tasks** | 반복 업무를 예약해서 자동으로 돌리려면? |
 | [15](docs/15-remote-control.md) | **Remote Control** | 내 컴퓨터의 세션을 폰에서 이어하려면? |
+| [16](docs/16-channels.md) | **Channels** | 외부 시스템(Telegram, Discord)이 Claude에게 이벤트를 push하려면? |
 
 ### Reference
 
