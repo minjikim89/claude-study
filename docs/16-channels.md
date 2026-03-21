@@ -243,3 +243,15 @@ Channels = "push 방향의 MCP" + "이벤트 기반 자동화"
 - 보안: 허용 목록 기반 — 등록되지 않은 계정의 메시지는 무시
 - `--channels` 플래그로 세션마다 opt-in, `Bun` 필수, **v2.1.80+** 필요
 - 리서치 프리뷰 단계 — `--channels` 플래그 문법과 프로토콜은 변경될 수 있음
+
+---
+
+## Claude Code Catalog에서 실전 적용
+
+이 챕터 개념을 바로 써보고 싶다면 → **[claude-code-catalog.vercel.app/ko/plugins](https://claude-code-catalog.vercel.app/ko/plugins)**
+
+| 리소스 | 내용 |
+|---|---|
+| **Telegram Channel Plugin** | Telegram 봇 연결 전체 흐름 — install 명령어 + 토큰 설정 + 터미널 데모 |
+| **Discord Channel Plugin** | Discord DM 연결 전체 흐름 |
+| **News: Channels Research Preview** | Channels 기능 공식 발표 요약 (ko/en/ja) |

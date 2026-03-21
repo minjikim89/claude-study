@@ -255,3 +255,15 @@ Plugin = 패키징 + 배포 레이어
 - `.claude/`에서 먼저 실험 → 공유 필요 시 Plugin으로 전환이 자연스러운 흐름
 - 팀 Marketplace를 설정하면 팀원 전체에 표준 도구 자동 배포 가능
 - Plugin 요구 버전: **Claude Code v1.0.33+**
+
+---
+
+## Claude Code Catalog에서 실전 적용
+
+이 챕터 개념을 바로 써보고 싶다면 → **[claude-code-catalog.vercel.app/ko/plugins](https://claude-code-catalog.vercel.app/ko/plugins)**
+
+| 리소스 | 내용 |
+|---|---|
+| **Plugins 섹션** | 설치 가능한 Plugin 13개 — Telegram Channel, Discord Channel 등 + 터미널 데모 |
+| **Telegram Channel Plugin** | Telegram 봇을 Claude 세션에 연결하는 Channel Plugin 설치 전체 흐름 |
+| **Discord Channel Plugin** | Discord DM을 Claude 입출력 창구로 연결하는 Channel Plugin |

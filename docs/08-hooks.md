@@ -210,3 +210,14 @@ Claude Code Hooks 구조:
 - `settings.json`에 JSON으로 설정
 - Skill(수동 호출) + Hooks(자동 실행) 조합으로 완전한 자동화 구현
 - 노코드 도구의 Trigger → Action 패턴과 동일한 구조
+
+---
+
+## Claude Code Catalog에서 실전 적용
+
+이 챕터 개념을 바로 써보고 싶다면 → **[claude-code-catalog.vercel.app/ko/hooks](https://claude-code-catalog.vercel.app/ko/hooks)**
+
+| 리소스 | 내용 |
+|---|---|
+| **Hooks 섹션** | 복사 가능한 Hook 설정 11개 — auto-format, lint-on-save, commit-msg-checker 등 |
+| **Patterns 섹션** | Hook + Skill 조합 자동화 패턴 |
