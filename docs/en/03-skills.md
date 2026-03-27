@@ -97,9 +97,57 @@ When every PR needs a check for security, performance, and code style — use `/
 ### 3. Onboarding Guide
 When a new team member joins — use `/onboarding` to walk them through the project structure, environment setup, and first task.
 
+## Real-World Example: /yt-digest — YouTube Podcast Analyzer
+
+The scenarios above were simple. In practice, Skills become far more powerful when **combined with helper scripts**.
+
+### The Problem
+
+You watch a lot of 3-hour tech podcasts. But you get through 30 minutes, bookmark the rest for "later," and never come back. You need the content as searchable text you can reference and ask questions about — not a video you have to watch linearly.
+
+### Design Choice: Standalone Tool vs. Skill
+
+| | Standalone Python + Claude API | Claude Code Skill |
+|---|---|---|
+| **LLM cost** | Paid per API call | No extra cost (within Claude Code session) |
+| **Follow-up questions** | Re-run each time | Natural conversation flow |
+| **Report format** | Fixed template | Flexible per situation |
+
+Key insight: **Claude Code itself is an LLM.** Load the transcript into context and you get analysis, summarization, and Q&A — no separate API needed.
+
+### Architecture
+
+```
+~/.claude/commands/yt-digest.md         ← Skill markdown (workflow definition)
+~/.claude/scripts/yt-digest/
+├── extract.py                           ← Python helper (extraction + caching)
+└── transcripts/                         ← Local cache (by video ID)
+```
+
+- **extract.py**: YouTube URL → extract subtitles → group into 60-second chunks → cache as JSON
+- **yt-digest.md**: Parse arguments → run extract.py → analyze results (4 modes)
+
+### Usage
+
+```
+/yt-digest https://youtu.be/xxx              ← Overview (key topics + insights)
+/yt-digest https://youtu.be/xxx report        ← Full structured report
+/yt-digest https://youtu.be/xxx 01:00:00-01:30:00  ← Segment summary
+/yt-digest https://youtu.be/xxx What did Jensen say about China?  ← Q&A
+```
+
+### Lessons
+
+1. **Skills aren't limited to markdown alone** — combine with external scripts for complex workflows
+2. **Claude Code = LLM** — no need to call a separate API; the Skill loads data into context, Claude analyzes it
+3. **Caching is key** — skip extraction on repeat analysis, jump straight to insights
+
+This pattern (helper script + Skill markdown) applies equally to meeting recordings, PDF paper summaries, data collection + reporting, and more.
+
 ## Key Takeaways
 
 - Skill = **a markdown file** (not code; non-developers can write them)
 - "Running" = **injecting instructions into the context** (not launching a separate program)
 - CLAUDE.md = always-applied rules / Skill = a recipe you call when you need it
+- Combining Skills with helper scripts enables **external data extraction + AI analysis workflows**
 - For complex multi-agent workflows, use **Subagents** and **Agent Teams** rather than Skills
